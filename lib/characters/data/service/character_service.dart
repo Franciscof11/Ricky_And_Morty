@@ -13,13 +13,11 @@ class CharacterServiceImpl implements CharacterService {
 
   @override
   Future<void> getCharacters([int page = 1]) async {
-    final response = await _client.get(
+    final response = _client.get(
       'character',
       queryParameters: {
         'page': '$page',
       },
     );
-    print('#Status Code -> ${response.statusCode}');
-    print('#Response -> ${response.data}');
   }
 }

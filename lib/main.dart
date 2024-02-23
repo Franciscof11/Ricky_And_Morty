@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:ricky_and_morty/characters/data/service/character_service.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
           child: const Icon(
@@ -24,7 +26,7 @@ class MainApp extends StatelessWidget {
                 BaseOptions(
                   baseUrl: 'https://rickandmortyapi.com/api/',
                 ),
-              ),
+              )..interceptors.add(PrettyDioLogger()),
             );
 
             service.getCharacters(1);
