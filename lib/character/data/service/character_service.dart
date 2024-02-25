@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:ricky_and_morty/characters/data/service/character_response.dart';
+import 'package:ricky_and_morty/character/data/service/character_response.dart';
 
 abstract class CharacterService {
   Future<CharacterAPiResponse> getCharacters([int page = 1]);

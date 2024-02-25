@@ -11,8 +11,7 @@
 import 'package:dio/dio.dart' as _i3;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:ricky_and_morty/characters/data/service/character_service.dart'
-    as _i4;
+import 'package:ricky_and_morty/character/data/service/character_service.dart' as _i4;
 import 'package:ricky_and_morty/network/network_module.dart' as _i5;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -39,8 +38,7 @@ _i1.GetIt init(
     gh<String>(instanceName: 'BaseUrl'),
     gh<_i3.Interceptor>(instanceName: 'PrettyLogger'),
   ));
-  gh.factory<_i4.CharacterService>(
-      () => _i4.CharacterServiceImpl(gh<_i3.Dio>()));
+  gh.factory<_i4.CharacterService>(() => _i4.CharacterServiceImpl(gh<_i3.Dio>()));
   return getIt;
 }
 
