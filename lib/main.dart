@@ -25,8 +25,10 @@ class MainApp extends StatelessWidget {
           onPressed: () async {
             final CharacterService service = GetIt.I.get();
 
+            // ignore: unused_local_variable
             final response = await service.getCharacters(1);
 
+            // ignore: avoid_print
             print('teste');
           },
         ),

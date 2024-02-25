@@ -1,1 +1,10 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - sort_constructors_first
+    - prefer_single_quotes
+    - camel_case_types
+    - library_names
+    - avoid_empty_else
+    
