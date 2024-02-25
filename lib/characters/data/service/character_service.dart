@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:ricky_and_morty/characters/data/service/character_response.dart';
 
 abstract class CharacterService {
-  Future<void> getCharacters([int page = 1]);
+  Future<CharacterAPiResponse> getCharacters([int page = 1]);
 }
 
 @Injectable(as: CharacterService)
@@ -14,12 +17,18 @@ class CharacterServiceImpl implements CharacterService {
   final Dio _client;
 
   @override
-  Future<void> getCharacters([int page = 1]) async {
-    final response = _client.get(
+  Future<CharacterAPiResponse> getCharacters([int page = 1]) async {
+    final response = await _client.get(
       'character',
       queryParameters: {
         'page': '$page',
       },
     );
+
+    if (response.statusCode == 200) {
+      return CharacterAPiResponse.fromJson(response.data);
+    }
+
+    throw HttpException('Fail to get characters at page: $page');
   }
 }

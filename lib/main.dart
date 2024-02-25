@@ -22,10 +22,12 @@ class MainApp extends StatelessWidget {
             Icons.search,
             color: Colors.black,
           ),
-          onPressed: () {
+          onPressed: () async {
             final CharacterService service = GetIt.I.get();
 
-            service.getCharacters(1);
+            final response = await service.getCharacters(1);
+
+            print('teste');
           },
         ),
         body: const Center(
