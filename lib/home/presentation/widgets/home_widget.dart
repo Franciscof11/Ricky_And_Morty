@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ricky_and_morty/character/presentation/character_page.dart';
 import 'package:ricky_and_morty/home/presentation/cubit/navigation_cubit.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -8,7 +9,7 @@ class HomeWidget extends StatelessWidget {
   final _pages = {
     //
     //
-    const Center(child: Text('Characters Page')): const BottomNavigationBarItem(
+    const CharacterPage(): const BottomNavigationBarItem(
       icon: Icon(Icons.home_rounded),
       label: 'Characters',
     ),
