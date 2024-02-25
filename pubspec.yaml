@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   dio: ^5.4.1
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   get_it: ^7.6.7

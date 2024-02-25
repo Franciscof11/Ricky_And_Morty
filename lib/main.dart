@@ -26,8 +26,6 @@ class MainApp extends StatelessWidget {
             final CharacterService service = GetIt.I.get();
 
             service.getCharacters(1);
-
-            GetIt.I.get();
           },
         ),
         body: const Center(
