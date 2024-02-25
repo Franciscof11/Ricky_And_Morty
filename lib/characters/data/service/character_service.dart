@@ -1,11 +1,13 @@
-// ignore_for_file: avoid_print
-
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class CharacterService {
   Future<void> getCharacters([int page = 1]);
 }
 
+@Injectable(as: CharacterService)
+
+//
 class CharacterServiceImpl implements CharacterService {
   CharacterServiceImpl(this._client);
 

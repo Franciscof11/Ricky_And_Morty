@@ -1,9 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ricky_and_morty/characters/data/service/character_service.dart';
+import 'package:ricky_and_morty/injection.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
   runApp(const MainApp());
 }
 
@@ -21,15 +23,11 @@ class MainApp extends StatelessWidget {
             color: Colors.black,
           ),
           onPressed: () {
-            final service = CharacterServiceImpl(
-              Dio(
-                BaseOptions(
-                  baseUrl: 'https://rickandmortyapi.com/api/',
-                ),
-              )..interceptors.add(PrettyDioLogger()),
-            );
+            final CharacterService service = GetIt.I.get();
 
             service.getCharacters(1);
+
+            GetIt.I.get();
           },
         ),
         body: const Center(
