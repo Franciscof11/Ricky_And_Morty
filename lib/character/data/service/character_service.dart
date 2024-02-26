@@ -25,6 +25,8 @@ class CharacterServiceImpl implements CharacterService {
       },
     );
 
+    await Future.delayed(const Duration(milliseconds: 500));
+
     if (response.statusCode == 200) {
       return CharacterAPiResponse.fromJson(response.data);
     }

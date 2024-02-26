@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricky_and_morty/character/presentation/bloc/character_bloc.dart';
+import 'package:ricky_and_morty/shared/widgets/default_loading_widget.dart';
 import 'package:ricky_and_morty/shared/widgets/default_try_again_widget.dart';
 
 class CharacterWidget extends StatefulWidget {
@@ -35,10 +36,7 @@ class _CharacterWidgetState extends State<CharacterWidget> {
           children: [
             if (state.result == ResultState.initial || state.result == ResultState.loading && state.isFirstPage) ...{
               const Center(
-                child: SizedBox(
-                  height: 100,
-                  child: CircularProgressIndicator(),
-                ),
+                child: DefaultLoadingWidget(),
               )
             } else if (state.result == ResultState.error && state.isFirstPage) ...{
               Center(
@@ -51,18 +49,18 @@ class _CharacterWidgetState extends State<CharacterWidget> {
                 controller: _scrollController,
                 itemBuilder: (context, index) {
                   if (index < state.characters.length) {
-                    return SizedBox(
-                      height: 200,
-                      child: Text(state.characters[index].name),
+                    return InkWell(
+                      onTap: () {},
+                      child: SizedBox(
+                        height: 200,
+                        child: Text(state.characters[index].name),
+                      ),
                     );
                   } else if (state.result == ResultState.error) {
                     return DefaultTryAgainWidget(onPressed: _requestCharacters);
                   } else {
                     return const Center(
-                      child: SizedBox(
-                        height: 100,
-                        child: CircularProgressIndicator(),
-                      ),
+                      child: DefaultLoadingWidget(),
                     );
                   }
                 },
