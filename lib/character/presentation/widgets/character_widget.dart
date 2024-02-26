@@ -1,6 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricky_and_morty/character/presentation/bloc/character_bloc.dart';
+import 'package:ricky_and_morty/shared/widgets/default_try_again_widget.dart';
 
 class CharacterWidget extends StatefulWidget {
   const CharacterWidget({super.key});
@@ -28,12 +29,54 @@ class _CharacterWidgetState extends State<CharacterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return BlocBuilder<CharacterBloc, CharacterState>(
+      builder: (context, state) {
+        return Stack(
+          children: [
+            if (state.result == ResultState.initial || state.result == ResultState.loading && state.isFirstPage) ...{
+              const Center(
+                child: SizedBox(
+                  height: 100,
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            } else if (state.result == ResultState.error && state.isFirstPage) ...{
+              Center(
+                child: DefaultTryAgainWidget(onPressed: _requestCharacters),
+              )
+            } else ...{
+              ListView.builder(
+                itemCount: state.hasReachedMax ? state.characters.length : state.characters.length + 1,
+                shrinkWrap: true,
+                controller: _scrollController,
+                itemBuilder: (context, index) {
+                  if (index < state.characters.length) {
+                    return SizedBox(
+                      height: 200,
+                      child: Text(state.characters[index].name),
+                    );
+                  } else if (state.result == ResultState.error) {
+                    return DefaultTryAgainWidget(onPressed: _requestCharacters);
+                  } else {
+                    return const Center(
+                      child: SizedBox(
+                        height: 100,
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                },
+              ),
+            }
+          ],
+        );
+      },
+    );
   }
 
   void _onScrollListener() {
     if (_isBottomReached && context.read<CharacterBloc>().state.result != ResultState.error) {
-      context.read<CharacterBloc>().add(CharacterRequestEvent());
+      _requestCharacters();
     }
   }
 
@@ -43,5 +86,9 @@ class _CharacterWidgetState extends State<CharacterWidget> {
     }
 
     return _scrollController.offset >= (_scrollController.position.maxScrollExtent * 0.9);
+  }
+
+  void _requestCharacters() {
+    context.read<CharacterBloc>().add(CharacterRequestEvent());
   }
 }
