@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ricky_and_morty/character/data/service/character_response.dart';
 import 'package:ricky_and_morty/character/domain/character_interactor.dart';
+import 'package:ricky_and_morty/shared/event_transformations.dart';
 
 part 'character_event.dart';
 part 'character_state.dart';
@@ -12,7 +13,7 @@ part 'character_state.dart';
 @Injectable()
 class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
   CharacterBloc(this._interactor) : super(const CharacterState()) {
-    on<CharacterRequestEvent>(_onCharacterRequestEvent);
+    on<CharacterRequestEvent>(_onCharacterRequestEvent, transformer: throttleDroppable(const Duration(milliseconds: 100)));
   }
 
   final CharacterInteractor _interactor;
