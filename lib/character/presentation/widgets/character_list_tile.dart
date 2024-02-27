@@ -36,6 +36,15 @@ class _CharacterListTileState extends State<CharacterListTile> {
   @override
   Widget build(BuildContext context) {
     Color? primaryColor = paletteGenerator?.dominantColor?.color;
+
+    String fullName = widget.character.name;
+
+    List<String> splitName = fullName.split(' ');
+
+    if (splitName.length >= 2) {
+      fullName = '${splitName[0]} ${splitName[1]}';
+    }
+
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
@@ -63,20 +72,20 @@ class _CharacterListTileState extends State<CharacterListTile> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      padding: const EdgeInsets.all(12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            widget.character.name,
+                            fullName,
                             style: GoogleFonts.raleway(
-                              fontSize: 22,
+                              fontSize: 19.5,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 14),
+                          const SizedBox(height: 12),
                           Text.rich(
                             TextSpan(
                                 text: 'Status:  ',
@@ -96,7 +105,7 @@ class _CharacterListTileState extends State<CharacterListTile> {
                                   ),
                                 ]),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 6),
                           Text(
                             'Specie: ${widget.character.species}',
                             style: GoogleFonts.raleway(
@@ -105,7 +114,7 @@ class _CharacterListTileState extends State<CharacterListTile> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const SizedBox(height: 10),
+                          const SizedBox(height: 6),
                           Text(
                             'Gender: ${widget.character.gender}',
                             style: GoogleFonts.raleway(
