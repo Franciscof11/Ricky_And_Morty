@@ -11,12 +11,6 @@ class HomeWidget extends StatelessWidget {
       icon: Icon(Icons.home_rounded),
       label: 'Characters',
     ),
-    //
-    //
-    const Center(child: Text('Settings Page')): const BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
-      label: 'Settings',
-    ),
   };
 
   @override

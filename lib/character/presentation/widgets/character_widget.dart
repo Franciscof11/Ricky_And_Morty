@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricky_and_morty/character/presentation/bloc/character_bloc.dart';
+import 'package:ricky_and_morty/character/presentation/widgets/character_list_tile.dart';
 import 'package:ricky_and_morty/shared/widgets/default_loading_widget.dart';
 import 'package:ricky_and_morty/shared/widgets/default_try_again_widget.dart';
 
@@ -44,17 +45,15 @@ class _CharacterWidgetState extends State<CharacterWidget> {
               )
             } else ...{
               ListView.builder(
-                itemCount: state.hasReachedMax ? state.characters.length : state.characters.length + 1,
+                itemCount: state.characters.length /* state.hasReachedMax ? state.characters.length : state.characters.length + 1 */,
                 shrinkWrap: true,
                 controller: _scrollController,
                 itemBuilder: (context, index) {
+                  final character = state.characters[index];
                   if (index < state.characters.length) {
-                    return InkWell(
-                      onTap: () {},
-                      child: SizedBox(
-                        height: 200,
-                        child: Text(state.characters[index].name),
-                      ),
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CharacterListTile(character: character),
                     );
                   } else if (state.result == ResultState.error) {
                     return DefaultTryAgainWidget(onPressed: _requestCharacters);
