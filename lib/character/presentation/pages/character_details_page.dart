@@ -18,6 +18,39 @@ class _CharacterDetailsPageState extends State<CharacterDetailsPage> {
       backgroundColor: widget.primaryColor,
       body: Column(
         children: [
+          const SizedBox(height: 0),
+          Hero(
+            tag: 'tag${widget.character.name}',
+            child: Container(
+              color: Colors.amber,
+              width: double.infinity,
+              height: 400,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.network(
+                    widget.character.image,
+                    fit: BoxFit.cover,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.black,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 50),
           Text(
             widget.character.name,
             style: GoogleFonts.raleway(

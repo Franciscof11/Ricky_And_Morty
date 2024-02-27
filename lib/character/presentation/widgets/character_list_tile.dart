@@ -46,38 +46,85 @@ class _CharacterListTileState extends State<CharacterListTile> {
           ),
         ),
       ),
-      child: Card(
-        color: primaryColor,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Image.network(
-                widget.character.image,
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.character.name,
-                      style: GoogleFonts.raleway(
-                        fontSize: 22,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+      child: primaryColor != null
+          ? Card(
+              shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(35)),
+              color: primaryColor,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Hero(
+                      tag: 'tag${widget.character.name}',
+                      child: Image.network(
+                        widget.character.image,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.character.name,
+                            style: GoogleFonts.raleway(
+                              fontSize: 22,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                          Text.rich(
+                            TextSpan(
+                                text: 'Status:  ',
+                                style: GoogleFonts.raleway(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: widget.character.status == 'Alive' ? '${widget.character.status} 🙂' : '${widget.character.status} 💀',
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 18,
+                                      color: widget.character.status == 'Alive' ? Colors.green : Colors.red,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ]),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Specie: ${widget.character.species}',
+                            style: GoogleFonts.raleway(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Gender: ${widget.character.gender}',
+                            style: GoogleFonts.raleway(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
-      ),
+            )
+          //
+          // SHIMMER ANIMATION HERE
+          //
+          : const CircularProgressIndicator(),
     );
   }
 }

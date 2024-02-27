@@ -25,6 +25,7 @@ class CharacterInfoResponse extends Equatable {
 
 class CharacterResponse extends Equatable {
   const CharacterResponse({
+    required this.gender,
     required this.id,
     required this.name,
     required this.status,
@@ -40,6 +41,7 @@ class CharacterResponse extends Equatable {
         species: json['species'],
         status: json['status'],
         type: json['type'],
+        gender: json['gender'],
       );
   final int id;
   final String name;
@@ -47,9 +49,10 @@ class CharacterResponse extends Equatable {
   final String species;
   final String type;
   final String image;
+  final String gender;
 
   @override
-  List<Object> get props => [id, name, status, species, type, image];
+  List<Object> get props => [id, name, status, species, type, image, gender];
 }
 
 class CharacterAPiResponse extends Equatable {
